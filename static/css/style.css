@@ -22,3 +22,7 @@ main{
     min-height: 100vh;
     flex-direction: column;
 }
+
+button {
+    background-color: #ffb74d;
+}

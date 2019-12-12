@@ -4,7 +4,7 @@ let router = require('express').Router();
 // Define routes
 /* ----- Login ----- */
 router.get('/login', (req, res) => {
-    res.send('GET /auth/login')
+    res.render('auth/login')
 })
 
 router.post('/login', (req, res) => {
@@ -13,7 +13,7 @@ router.post('/login', (req, res) => {
 
 /* ----- Signup ----- */
 router.get('/signup', (req, res) => {
-    res.send('GET /auth/signup')
+    res.render('auth/signup')
 })
 
 router.post('/signup', (req, res) => {
