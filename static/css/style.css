@@ -12,4 +12,13 @@ nav {
 
 main{
     text-align: center;
+    flex: 1 0 auto;
+}
+
+.page-footer {
+    background-color: #ffb74d;
+    text-align: center;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
 }
