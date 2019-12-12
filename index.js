@@ -8,6 +8,7 @@ let app = express();
 // Set up and middleware
 app.set('view engine', 'ejs')
 app.use(layouts)
+app.use('/', express.static('static'))
 // Add any controllers
 
 // Add home or catch-all routes
