@@ -16,5 +16,8 @@ app.get('/', (req, res) => {
     res.render('home')
 })
 
+app.get('*', (req, res) => {
+    res.render('error404')
+})
 
 app.listen(3000, () => {console.log('🦊Singin and Dancin🐰')})
