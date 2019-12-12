@@ -1,0 +1,44 @@
+<h1>Sign Up</h1>
+<div class = 'row'>
+    <form method="POST" action="/auth/login" class="col s12">
+        <div class="row">
+          <div class="input-field col s4">
+            <input id="firstName" type="text" class="validate" name="firstName">
+            <label for="firstName">First Name</label>
+          </div>
+          <div class="input-field col s4">
+                <input id="lastName" type="text" class="validate" name="lastName">
+                <label for="lastName">Last Name</label>
+              </div>
+        </div>
+        <div class="row">
+                <div class="input-field col s10">
+                    <input id="email-inline" type="email" class="validate" name="email">
+                    <label for="email">E-Mail</label>
+                </div>
+        </div>
+        <div class="row">
+                <div class="input-field col s10">
+                    <input id="profilePic" type="text" class="validate" name="profilePic">
+                    <label for="profilePic">Image Link to a Profile Picture</label>
+                </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s4">
+                <input id="password" type="password" class="validate" name="password">
+                <label for="password">Password</label>
+            </div>
+            <div class="row">
+                    <div class="input-field col s4">
+                        <input id="confirmPassword" type="password" class="validate" name="confirmPassword">
+                        <label for="confirmPassword">Confirm Password</label>
+                    </div>
+                </div>
+        </div>
+
+
+    <button class="btn waves-effect waves-light orange lighten-3" type="submit" name="action">Sign Up
+        <i class="material-icons right">send</i>
+      </button>
+    </form>
+</div>
