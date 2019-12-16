@@ -10,17 +10,26 @@
                 <input id="lastName" type="text" class="validate" name="lastName">
                 <label for="lastName">Last Name</label>
               </div>
+              <div class="input-field col s4">
+                  <input id="username" type="text" class="validate" name="username">
+                  <label for="username">User Name</label>
+              </div>
         </div>
         <div class="row">
-                <div class="input-field col s10">
+                <div class="input-field col s4">
                     <input id="email-inline" type="email" class="validate" name="email">
                     <label for="email">E-Mail</label>
                 </div>
+                <div class="input-field col s4">
+                    <input id="birthdate" type="text" class="datepicker validate" name="birthdate">
+                    <label for="birthdate">Date of Birth</label>
+                </div>
         </div>
+        
         <div class="row">
-                <div class="input-field col s10">
-                    <input id="profilePic" type="text" class="validate" name="profilePic">
-                    <label for="profilePic">Image Link to a Profile Picture</label>
+                <div class="input-field col s6">
+                    <input id="photoUrl" type="url" class="validate" name="photoUrl">
+                    <label for="photoUrl">Image Link to a Profile Picture</label>
                 </div>
         </div>
         <div class="row">
@@ -35,10 +44,29 @@
                     </div>
                 </div>
         </div>
-
+        <div class="row">
+                <div class="input-field col s12">
+                    <textarea id="bio" class="materialize-textarea" name="bio"></textarea>
+                    <label for="bio">User Bio</label>
+                </div>
+        </div>
 
     <button class="btn waves-effect waves-light orange lighten-3" type="submit" name="action">Sign Up
         <i class="material-icons right">send</i>
       </button>
     </form>
 </div>
+
+<script>  
+    document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('.datepicker');
+        let startDate = new Date()
+        startDate.setFullYear(startDate.getFullYear() - 30)
+        var instances = M.Datepicker.init(elems, {
+            autoClose: true,
+            defaultDate: startDate,
+            minYear: startDate.getFullYear() - 70,
+            maxYear: (new Date()).getFullYear()
+        });
+    });
+  </script>
