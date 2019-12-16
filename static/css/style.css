@@ -26,3 +26,9 @@ main{
 button {
     background-color: #ffb74d;
 }
+
+#toast-container {
+    left: 37%;
+    right: auto;
+    bottom: auto;
+}

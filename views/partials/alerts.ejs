@@ -1,0 +1,17 @@
+
+<div id="toast-container"></div>
+
+<script>
+    let errors = '<%- alerts.error %>'
+  document.addEventListener('DOMContentLoaded', function() {
+      if (errors){
+    M.toast({
+      html: '<%- alerts.error %>',
+      classes: 'red'
+    })
+    }
+  })
+</script>
+
+
+

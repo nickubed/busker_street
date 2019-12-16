@@ -13,11 +13,17 @@ router.post('/login', (req, res) => {
 
 /* ----- Signup ----- */
 router.get('/signup', (req, res) => {
-    res.render('auth/signup')
+    res.render('auth/signup', { data: {} })
 })
 
 router.post('/signup', (req, res) => {
-    res.send(req.body)
+    if(req.body.password != req.body.confirmPassword){
+        req.flash('error', 'Passwords do not match, you dumb bunny!')
+        res.render('auth/signup', { data: req.body, alerts: req.flash() })
+    }
+    else{
+        res.send(req.body)
+    }
 })
 
 /* ----- Logout ----- */
