@@ -15,6 +15,8 @@ app.use('/', express.static('static'))
 app.use(express.urlencoded({ extended: false }))
 app.use(session({
     secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true
 }))
 app.use(flash()) //This MUST be below app.use(session), as it is dependent on it!!!
 
