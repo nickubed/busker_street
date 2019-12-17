@@ -6,9 +6,11 @@ module.exports = (sequelize, DataTypes) => {
   const user = sequelize.define('user', {
     firstname: {
       type: DataTypes.STRING,
+      allowNull: false,
       validate: {
-        notNull: {
-          msg: 'Please have a first name. It\'s really the least I can ask.'
+        len: {
+          args: [1, 255],
+          msg: "A"
         }
       }
     },
@@ -17,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
      type: DataTypes.STRING,
      validate: {
        isEmail: {
-         msg: 'Hey, please give a valid email address! 🐶'
+         msg: 'B'
        }
      }
     },
@@ -28,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
      validate: {
        len: {
          args: [6, 25],
-         msg: 'Your password must be between 6 and 25 characters.'
+         msg: 'C'
        }
      }
     },
@@ -36,7 +38,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       validate: {
         isUrl: {
-          msg: 'No picture?!'
+          msg: 'D'
         }
       }
     },
