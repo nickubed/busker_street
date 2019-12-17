@@ -3,13 +3,15 @@
 
 <script>
     let errors = '<%- alerts.error %>'
+    console.log('browser', errors)
   document.addEventListener('DOMContentLoaded', function() {
-      if (errors){
-    M.toast({
-      html: '<%- alerts.error %>',
-      classes: 'red'
-    })
-    }
+      if (errors) {
+        console.log('errors is yes')
+        M.toast({
+          html: 'errors',
+          classes: 'red'
+        })
+      }
   })
 </script>
 
