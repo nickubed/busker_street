@@ -3,13 +3,22 @@
 
 <script>
     let errors = '<%- alerts.error %>'
+    let successes = '<%- alerts.success %>'
     console.log('browser', errors)
   document.addEventListener('DOMContentLoaded', function() {
       if (errors) {
         console.log('errors is yes')
         M.toast({
           html: 'errors',
-          classes: 'red'
+          classes: 'red',
+          displayLength: 2000
+        })
+      }
+      if (successes) {
+        M.toast({
+          html: successes,
+          classes: 'green lighten-2',
+          displayLength: 2000
         })
       }
   })

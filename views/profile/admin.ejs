@@ -1,0 +1,15 @@
+<h1>Extra Special Super Secret Admin Page</h1>
+<h2>Very Exclusive club, take a look around, there is so much to see!</h2>
+<button>Only you can press this button.</button>
+
+<h1><%= user.username %>'s Admin Profile</h1>
+<div class="row">
+    <div class="col s4">
+        <img class="img-responsive" alt="user image" src="<%= user.photoUrl %>">
+    </div>
+    <div class="col s8">
+        <h2><%= user.username %></h2>
+        <p><strong>Full Name: <%= user.firstname %> <%= user.lastname %></strong></p>
+        <p><strong>Admin Status: <%= user.admin ? 'Yes' : 'No' %></strong></p>
+    </div>
+</div>
