@@ -45,3 +45,40 @@ This exists so that I don't have to start froms scratch each time I build a proj
 | GET | /profile/admin | profile.js | Admin user profile |
 
 ### Steps To Use
+
+#### 1. Clone this repository, but name it anything but auth_boilerplate
+
+```
+git clone <repo_link> <new_name>
+```
+
+#### 2. Install node modules from the package.json
+
+```
+npm install
+```
+
+#### 3. Customize with new project name!
+
+Remove defaulty type stuff, things that make this look boring and default. You know the stuff.
+
+* But if you don't, maybe try changing the title? That's in layout.ejs.
+* Logo in Navbar
+* Description / Repo link within the package.json file.
+* Remove boilerplate's readme content. Yes, all of this. Replace it with your new project's readme!
+
+#### 4. Create a brand new shiny db name
+
+```
+createdb <new_db_name> (Make it relevant to the context of the project. Cmon.)
+```
+
+#### 5. Update config.json
+
+* Change the database name (reference the database you just made.)
+* Other settings are likely the same. But check username, password, and dialect.
+
+#### 6. Check the models and migrations for relevance. Trim 'em up.
+
+For example, if your project doesn't require a birthdate field, then maybe remove that.
+Delete from model AND migration.
