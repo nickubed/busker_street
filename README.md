@@ -82,3 +82,37 @@ createdb <new_db_name> (Make it relevant to the context of the project. Cmon.)
 
 For example, if your project doesn't require a birthdate field, then maybe remove that.
 Delete from model AND migration.
+
+#### 7. Run the migrations
+
+```
+sequelize db:migrate
+```
+
+#### 8. Add a .env file! Fields needed:
+
+* SESSION_SECRET: Can be any random string.
+
+> Note: If using OAuth for Facebook & / GitHub, switch to directions on the 'with-oauth' branch.
+
+#### 9. Run server; make sure it works.
+
+```
+nodemon
+```
+
+or
+
+```
+node index.js
+```
+
+#### 10. Create a NEW repository on Github for the new project to live!
+
+* Create a new repository on your personal Github account (via the ole' GUI)
+* Delete the old remote to origin (`git remote remove origin`)
+* Add the new repository link as a remote location you can push to. (`git remote add origin <new_link>`)
+* Add, commit, aaand...
+* `git push origin master`
+
+> Note: Don't make commits from the new project to your auth boilerplate!! Keep it pristine. PRISTINE!!!
