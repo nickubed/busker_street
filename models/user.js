@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         len: {
           args: [1, 255],
-          msg: "A"
+          msg: "You can be anyone you want to be. But you can't be that."
         }
       }
     },
@@ -19,18 +19,17 @@ module.exports = (sequelize, DataTypes) => {
      type: DataTypes.STRING,
      validate: {
        isEmail: {
-         msg: 'B'
+         msg: 'Please enter a valid email address.'
        }
      }
     },
     username: DataTypes.STRING,
-    birthdate: DataTypes.DATE,
     password: {
      type: DataTypes.STRING,
      validate: {
        len: {
          args: [6, 25],
-         msg: 'C'
+         msg: 'Please enter a valid password.'
        }
      }
     },
@@ -38,7 +37,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       validate: {
         isUrl: {
-          msg: 'D'
+          msg: 'Please provide a valid photo url.'
         }
       }
     },
