@@ -10,4 +10,8 @@ router.get('/admin', isAdminLoggedIn, (req, res) => {
     res.render('profile/admin')
 })
 
+router.get('/buskerList', isLoggedIn, (req, res) => {
+    res.send('Hello')
+})
+
 module.exports = router
