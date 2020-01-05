@@ -8,17 +8,20 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      lat: {
-        type: Sequelize.FLOAT
-      },
-      long: {
-        type: Sequelize.FLOAT
+      address: {
+        type: Sequelize.STRING
       },
       city: {
         type: Sequelize.STRING
       },
       state: {
         type: Sequelize.STRING
+      },
+      lat: {
+        type: Sequelize.FLOAT
+      },
+      long: {
+        type: Sequelize.FLOAT
       },
       createdAt: {
         allowNull: false,
