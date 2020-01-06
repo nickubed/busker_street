@@ -2,30 +2,13 @@
 module.exports = (sequelize, DataTypes) => {
   const location = sequelize.define('location', {
     address: { 
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        len: {
-          args: [1, 255],
-          msg: "Please enter a valid address."
-        }
-      }
+      type: DataTypes.STRING
     },
     city: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        len: [1, 255],
-        msg: "Please enter a valid city name."
-      }
+      type: DataTypes.STRING
     },
     state: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        len: [4, 13],
-        msg: "Please enter a valid state name."
-      }
+      type: DataTypes.STRING
     },
     lat: DataTypes.FLOAT,
     long: DataTypes.FLOAT

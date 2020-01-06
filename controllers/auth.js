@@ -15,7 +15,7 @@ router.get('/login', (req, res) => {
 
 router.post('/login', passport.authenticate('local', {
     successRedirect: '/profile',
-    successFlash: 'Yay, we logged in!',
+    successFlash: 'Successfully Logged In.',
     failureRedirect: '/auth/login',
     failureFlash: 'Invalid Credentials'
 }))
@@ -50,7 +50,7 @@ router.post('/signup', (req, res, next) => {
             }
             else{
                 //The user already has an account (they may have forgotten this fact)
-                req.flash('error', 'You already have an account, dumbass!')
+                req.flash('error', 'You already have an account')
                 res.redirect('/auth/login')
             }
         })

@@ -35,6 +35,7 @@ app.use((req, res, next) => {
 // Add any controllers
 app.use('/auth', require('./controllers/auth'))
 app.use('/profile', require('./controllers/profile'))
+app.use('/busker', require('./controllers/busker'))
 // Add home or catch-all routes
 app.get('/', (req, res) => {
     res.render('home')

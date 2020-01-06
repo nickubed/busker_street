@@ -4,7 +4,8 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     musicType: DataTypes.STRING,
     description: DataTypes.TEXT,
-    rating: DataTypes.FLOAT
+    rating: DataTypes.FLOAT,
+    userId: DataTypes.INTEGER
   }, {});
   busker.associate = function(models) {
     // associations can be defined here

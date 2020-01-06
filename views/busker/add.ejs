@@ -1,0 +1,19 @@
+<div class="row">
+    <form action="/busker/add" method="POST">
+    <div class="col s12 l6">
+        Name: <input name="name">
+        Music Type: <input name="musicType">
+        Description: <input name="description">
+        Rating: <input name="rating">
+        <input type = "hidden" name="userId" value="<%=user.id%>">
+        <input type="submit">
+    </div>
+    <div class="col s12 l6">
+        Address: <input name="address">
+        City: <input name="city">
+        State: <input name="state">
+        Lat: <input name="lat">
+        Long: <input name="long">
+    </div>
+    </form>
+</div>
