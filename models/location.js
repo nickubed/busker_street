@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   location.associate = function(models) {
     // associations can be defined here
-    models.busker.belongsToMany(models.location, { through: 'buskerLocation'})
+    models.location.belongsToMany(models.busker, { through: 'buskerLocation'})
 
   };
   return location;

@@ -1,0 +1,7 @@
+Delete all models & migrations
+Create new models / migrations:
+    User
+    usersBuskers
+    busker
+    buskersLocations
+    location

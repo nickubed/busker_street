@@ -1,20 +1,18 @@
-let router = require('express').Router()
-let db = require('../models')
-let isLoggedIn = require('../middleware/isLoggedIn')
-// let mapboxgl = require('mapbox-gl')
+require('dotenv').config()
+const router = require('express').Router()
+const db = require('../models')
+const isLoggedIn = require('../middleware/isLoggedIn')
+const mbxClient = require('@mapbox/mapbox-sdk')
+const mbxGeocode = require('@mapbox/mapbox-sdk/services/geocoding')
+
+const mb = mbxClient({ accessToken: 'pk.eyJ1Ijoibmlja3ViZWQiLCJhIjoiY2s0YWl3ZjJ6MDRnYTNrbzV3aTQ1bGlzcyJ9.BB2C_W2tJ5gK3Y_GhkBVSQ' })
+const geocode = mbxGeocode(mb)
 
 router.get('/', (req, res) => {
     db.busker.findAll({
         include: [db.location, db.user]
     })
     .then(buskers => {
-        // mapboxgl.accessToken = 'pk.eyJ1Ijoibmlja3ViZWQiLCJhIjoiY2s0YWl3ZjJ6MDRnYTNrbzV3aTQ1bGlzcyJ9.BB2C_W2tJ5gK3Y_GhkBVSQ';
-        // var map = new mapboxgl.Map({
-        // container: 'map', // container id
-        // style: 'mapbox://styles/mapbox/streets-v11', // stylesheet location
-        // center: [-122.3321, 47.6062], // starting position [lng, lat]
-        // zoom: 9 // starting zoom
-        // });
         res.render('busker/index', { buskers })
     })
     .catch(err => {
@@ -50,23 +48,35 @@ router.get('/:id', (req, res) => {
 })
 
 router.post('/add', isLoggedIn, (req, res) => {
+    let locations = {
+        address : req.body.address,
+        city : req.body.city,
+        state : req.body.state
+    }
     db.busker.create({
         name: req.body.name,
         musicType: req.body.musicType,
         description: req.body.description,
         rating: req.body.rating,
-        userId: req.body.userId })
-    db.location.create({
-        //Needs functionality to allow it to populate buskerLocation
-        address: req.body.address,
-        city: req.body.city,
-        state: req.body.state,
-        lat: req.body.lat,
-        long: req.body.long,
-        buskerLocation: req.body.id
+        userId: req.body.userId 
     })
+        .then(busker => {
+            db.location.create({
+                address : locations.address,
+                city: locations.city,
+                state: locations.state
+            })
+            .then((location) => {
+                busker.addLocation(location)
+                })
+                .catch(generalError => {
+                    console.log(err)
+                })
+            .catch(generalError => {
+                console.log(err)
+            })
+        })
     .then(function(busker) {
-        console.log(busker.get())
         res.redirect('/busker')
     })
     .catch(err => {
