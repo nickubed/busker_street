@@ -1,0 +1,60 @@
+<head>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <script src="/script/app.js"></script>
+    <script src="https://api.mapbox.com/mapbox-gl-js/v1.6.1/mapbox-gl.js"></script>
+    <link rel = "stylesheet" type = "text/css" href = "/css/style.css">
+    <link href="https://api.mapbox.com/mapbox-gl-js/v1.6.1/mapbox-gl.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; }
+        #map { position: center; top: 15%; bottom: 0; width: 60%; height: 75%;};
+    </style>
+</head>
+
+<div id="map" class="col s12 l6">
+    <script>
+    mapboxgl.accessToken = '';
+    var map = new mapboxgl.Map({
+    container: 'map', // container id
+    style: 'mapbox://styles/mapbox/streets-v11', // stylesheet location
+    center: [-122.3321, 47.6062], // starting position [lng, lat]
+    zoom: 3 // starting zoom
+    });
+
+    var geojson = {
+        type: 'FeatureCollection',
+        features: [{
+            type: 'Feature',
+            geometry: {
+                type: 'Point',
+                coordinates: [location.lat, location.long]
+            },
+            properties: {
+                title: 'Mapbox',
+                description: 'Washington, D.C.'
+            }
+        },
+        {
+            type: 'Feature',
+            geometry: {
+                type: 'Point',
+                coordinates: [-122.414, 37.776]
+            },
+            properties: {
+                title: 'Mapbox',
+                description: 'San Francisco, California'
+            }
+        }]
+        };
+    // add markers to map
+    geojson.features.forEach(function(marker) {
+        // create a HTML element for each feature
+        var el = document.createElement('div');
+        el.className = 'marker';
+        console.log(marker.geometry.coordinates)
+        // make a marker for each feature and add to the map
+        new mapboxgl.Marker(el)
+        .setLngLat(marker.geometry.coordinates)
+        .addTo(map);
+    });
+    </script>
+</div>
