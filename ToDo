@@ -1,7 +1,3 @@
-Delete all models & migrations
-Create new models / migrations:
-    User
-    usersBuskers
-    busker
-    buskersLocations
-    location
+Map needs to display all buskers
+    When this is complete, make map appear on show page that shows just the busker selected.
+    When this is complete, make a map appear on the user page that shows all buskers identified by that user

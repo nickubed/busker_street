@@ -15,20 +15,43 @@
 <container>
     <div class="row">
         <div class="col s12 l6 left-align">
-            <% buskers.forEach(b => { %>
-                <p><%= b.name %></p>
-            <% }) %>
-        </div>
+        <table class="table striped">
+            <thead>
+                <th>Name</th>
+                <th>Music Type</th>
+                <th>Lat</th>
+                <th>Long</th>
+            </thead>
+            <tbody>
+                <% buskers.forEach(b => { %>
+                    <tr>
+                        <td><a href="busker/<%= b.id %>"><%= b.name %></a></td>
+                        <td><%= b.musicType %></td>
+                        <td id="lat"><%= b.locations[0].lat %></td>
+                        <td id="long"><%= b.locations[0].long %></td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
 
+
+
+
+
+        
         <div id="map" class="col s12 l6">
             <script>
-            mapboxgl.accessToken = '';
+            mapboxgl.accessToken = '<%= mapkey %>';
             var map = new mapboxgl.Map({
             container: 'map', // container id
             style: 'mapbox://styles/mapbox/streets-v11', // stylesheet location
             center: [-122.3321, 47.6062], // starting position [lng, lat]
             zoom: 3 // starting zoom
             });
+            let lat = document.getElementById('lat').textContent
+            let long = document.getElementById('long').textContent
+            console.log(lat, long)
 
             var geojson = {
                 type: 'FeatureCollection',
@@ -36,7 +59,7 @@
                     type: 'Feature',
                     geometry: {
                         type: 'Point',
-                        coordinates: [-77.032, 38.913]
+                        coordinates: [long, lat]
                     },
                     properties: {
                         title: 'Mapbox',
@@ -55,6 +78,8 @@
                     }
                 }]
                 };
+
+
             // add markers to map
             geojson.features.forEach(function(marker) {
                 // create a HTML element for each feature

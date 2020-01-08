@@ -14,19 +14,5 @@ var db = require('./models')
 
 // router.get('/results', function (req, res) {
   // TODO forward geocode using the req.query
-  geocode.forwardGeocode({
-    query: `${req.location.address}, ${req.location.city}, ${req.query.state}`,
-    types: ['place'],
-    countries: ['us']
-  }).send()
-  .then(function(response) {
-    let results = response.body.features.map(result => {
-      return {
-        name: result.place_name,
-        lat: result.center[1],
-        long: result.center[0]
-      }
-    })
-    res.render('cities/results', { query: req.query, results });
-  })
+
 // });

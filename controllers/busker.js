@@ -5,7 +5,7 @@ const isLoggedIn = require('../middleware/isLoggedIn')
 const mbxClient = require('@mapbox/mapbox-sdk')
 const mbxGeocode = require('@mapbox/mapbox-sdk/services/geocoding')
 
-const mb = mbxClient({ accessToken: 'pk.eyJ1Ijoibmlja3ViZWQiLCJhIjoiY2s0YWl3ZjJ6MDRnYTNrbzV3aTQ1bGlzcyJ9.BB2C_W2tJ5gK3Y_GhkBVSQ' })
+const mb = mbxClient({ accessToken: process.env.MAPBOX_TOKEN })
 const geocode = mbxGeocode(mb)
 
 router.get('/', (req, res) => {
@@ -13,7 +13,7 @@ router.get('/', (req, res) => {
         include: [db.location, db.user]
     })
     .then(buskers => {
-        res.render('busker/index', { buskers })
+        res.render('busker/index', { buskers, mapkey: process.env.MAPBOX_TOKEN })
     })
     .catch(err => {
         console.log(err)
@@ -37,8 +37,10 @@ router.get('/add', isLoggedIn, (req, res) => {
 /* ----------------------------- FROM BRANDON BLACK, MODIFIED ------------------------------- */
 
 router.get('/all', function(req, res) { // Shows all cities in our db
-    db.location.findAll()
-    .then(function(locations) {
+    db.location.findAll({
+        include: [db.busker]
+    })
+    .then((locations) => {
       let markers = locations.map(location => {
         let markerObj = {
           "type": "Feature",
@@ -52,8 +54,8 @@ router.get('/all', function(req, res) { // Shows all cities in our db
           }
         }
         return JSON.stringify(markerObj);
-      })
-      res.render('busker/allBuskTEMP', { locations, mapkey: process.env.MAPBOX_KEY, markers })
+    })
+      res.render('busker/allBuskTEMP', { locations, mapkey: process.env.MAPBOX_TOKEN, markers })
     })
     .catch(err => {
         console.log(err)
@@ -76,8 +78,6 @@ router.get('/:id', (req, res) => {
     })
 })
 
-
-
 router.post('/add', isLoggedIn, (req, res) => {
     //Pass location information into geocoder
     geocode.forwardGeocode({
@@ -86,49 +86,57 @@ router.post('/add', isLoggedIn, (req, res) => {
         countries: ['us']
     }).send()
         .then((response) => {
-            //responds with geocoded data, which is lat long
-            lat = response.body.features[0].center[1]
-            long = response.body.features[0].center[0]
-            //declaration of locations object
-        var locations = {
-            address : req.body.address,
-            city : req.body.city,
-            state : req.body.state,
-            lat: lat,
-            long: long
-        }
-        //begin population of db, here we do busker
-        db.busker.create({
-            name: req.body.name,
-            musicType: req.body.musicType,
-            description: req.body.description,
-            rating: req.body.rating,
-            userId: req.body.userId 
-        })
-        //populate location db
-            .then(busker => {
-                db.location.create({
-                    address : locations.address,
-                    city: locations.city,
-                    state: locations.state,
-                    lat: locations.lat,
-                    long: locations.long
-                })
-                //Adding location & busker to join table
-                .then((location) => {
-                    busker.addLocation(location)
+            if(response.body.features.length){
+                console.log(response)
+                //responds with geocoded data, which is lat long
+                lat = response.body.features[0].center[1]
+                long = response.body.features[0].center[0]
+                //declaration of locations object
+            let locations = {
+                address : req.body.address,
+                city : req.body.city,
+                state : req.body.state,
+                lat: lat,
+                long: long
+                }
+                    //begin population of db, here we do busker
+                    db.busker.create({
+                        name: req.body.name,
+                        musicType: req.body.musicType,
+                        description: req.body.description,
+                        rating: req.body.rating,
+                        userId: req.body.userId 
                     })
-                    .catch(generalError => {
-                        console.log(err)
-                    })
-                .catch(generalError => {
-                    console.log(err)
+                    //populate location db
+                    .then(busker => {
+                        db.location.create({
+                            address : locations.address,
+                            city: locations.city,
+                            state: locations.state,
+                            lat: locations.lat,
+                            long: locations.long
+                        })
+                    //Adding location & busker to join table
+                        .then((location) => {
+                            busker.addLocation(location)
+                            })
+                            .catch(generalError => {
+                                console.log(err)
+                            })
+                        .catch(generalError => {
+                            console.log(err)
+                        })
                 })
-            })
-        })   
+            }
+            else {
+                req.flash('error', `Bad address, I don't know why either.`)
+                res.render('busker/add', { alerts: req.flash() })
+            }
+            })   
         .then(function(busker) {
             res.redirect('/busker')
         })
+        
         .catch(err => {
             console.log(err)
             res.render('error')
