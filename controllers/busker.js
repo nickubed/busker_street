@@ -34,43 +34,14 @@ router.get('/add', isLoggedIn, (req, res) => {
     })
 })
 
-/* ----------------------------- FROM BRANDON BLACK, MODIFIED ------------------------------- */
-
-router.get('/all', function(req, res) { // Shows all cities in our db
-    db.location.findAll({
-        include: [db.busker]
-    })
-    .then((locations) => {
-      let markers = locations.map(location => {
-        let markerObj = {
-          "type": "Feature",
-          "geometry": {
-            "type": "Point",
-            "coordinates": [location.long, location.lat]
-          },
-          "properties": {
-            "title": location.address,
-            "icons": "../static/images/mapbox-icon.png"
-          }
-        }
-        return JSON.stringify(markerObj);
-    })
-      res.render('busker/allBuskTEMP', { locations, mapkey: process.env.MAPBOX_TOKEN, markers })
-    })
-    .catch(err => {
-        console.log(err)
-        res.render('error')
-    })
-  })
-
-/* ------------- END CONTENT FROM THE LEBRON JAMES OF MAPBOX CODE --------------------------- */
 
 router.get('/:id', (req, res) => {
     db.busker.findOne({
-        where: {id: req.params.id}
+        where: {id: req.params.id},
+        include: [db.location]
     })
     .then(busker => {
-        res.render('busker/show', { busker })
+        res.render('busker/show', { busker, mapkey: process.env.MAPBOX_TOKEN })
     })
     .catch(err => {
         console.log(err)

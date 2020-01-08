@@ -9,7 +9,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel = "stylesheet" type = "text/css" href = "/css/style.css">
     <!-- Link Mapbox -->
-    <!-- <link href='https://api.mapbox.com/mapbox-gl-js/v1.6.1/mapbox-gl.css' rel='stylesheet' /> -->
+    <script src="https://api.mapbox.com/mapbox-gl-js/v1.6.1/mapbox-gl.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v1.6.1/mapbox-gl.css" rel="stylesheet" />
+    <!-- If I'm referencing Mapbox, it will typically look like the below code. OVERWRITE WHERE NEEDED!-->
+    <style>
+        body { margin: 0; padding: 0; }
+        #map { position: center; top: 55%; bottom: 0; left: 25%; width: 50%; height: 55%;};
+    </style>
     <title>Busker Street</title>
 </head>
 <body>
@@ -21,7 +27,6 @@
     <%- include('partials/footer') %>
     <!-- Materialize javascript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <!-- <script src='https://api.mapbox.com/mapbox-gl-js/v1.6.1/mapbox-gl.js'></script> -->
 </body>
 </html>
 

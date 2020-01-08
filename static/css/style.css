@@ -9,6 +9,22 @@ nav {
     width: 100%;
     background-color: #90a4ae;
 }
+tbody{
+    height: 60vh;
+    display: block;
+    overflow: scroll;
+}
+thead, tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+thead {
+    width: calc( 100% - 1em);
+}
+table {
+    width: 35vw;
+}
 
 main {
     text-align: center;
@@ -35,12 +51,16 @@ button {
     bottom: auto;
 }
 
-/* #lat {
+.lat {
     display: none;
 }
-#long {
+.long {
     display: none;
-} */
+}
+.city {
+    display: none;
+}
+
 
 #map {
     position: absolute;
