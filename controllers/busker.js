@@ -89,12 +89,14 @@ router.post('/add', isLoggedIn, (req, res) => {
                         })
                     //Adding location & busker to join table
                         .then((location) => {
+                            console.log(location)
                             busker.addLocation(location)
+                            res.redirect('/');
                             })
-                            .catch(generalError => {
+                            .catch(err => {
                                 console.log(err)
                             })
-                        .catch(generalError => {
+                        .catch(err => {
                             console.log(err)
                         })
                 })
@@ -104,10 +106,6 @@ router.post('/add', isLoggedIn, (req, res) => {
                 res.render('busker/add', { alerts: req.flash() })
             }
             })   
-        .then(function(busker) {
-            res.redirect('/busker')
-        })
-        
         .catch(err => {
             console.log(err)
             res.render('error')

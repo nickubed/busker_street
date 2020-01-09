@@ -3,15 +3,22 @@
     <div class="col s12 l6">
         Name: <input name="name">
         Music Type: <input name="musicType">
-        Description: <input name="description">
-        Rating: <input name="rating">
-        <input type = "hidden" name="userId" value="<%=user.id%>">
-        <input type="submit">
+        Rating: <input id="rating" type="range" min="0" max="5" step="0.5" name="rating">
     </div>
     <div class="col s12 l6">
         Address: <input name="address">
         City: <input name="city">
         State: <input name="state">
     </div>
+        <div class = "input-field col s12">
+            <textarea id="description" class="validate materialize-textarea" name="description"></textarea>
+            <label for="description">Description</label>
+        </div>
+        <div class= "col s12 l6">
+        <input type = "hidden" name="userId" value="<%=user.id%>">
+    </div>
+    </div>
+
+    <input type="submit">
     </form>
 </div>

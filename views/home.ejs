@@ -1,2 +1,79 @@
-<h1>Busker Street</h1>
-<h2>This should display a mapbox with all buskers indicated.</h2>
+<head>
+    <style>
+        body { margin: 0; padding: 0; }
+        #map { position: center; top: 35%; bottom: 0; left: 50%; width: 35%; height: 55%;};
+    </style>
+</head>
+
+<body>
+    <h1>Buskers of the World</h1>
+<container>
+    <div class="row">
+        <div class="col s12 l6 left-align">
+        <table class="table striped">
+            <thead>
+                <th>Name</th>
+                <th>Music Type</th>
+            </thead>
+            <tbody>
+                <% buskers.forEach(b => { %>
+                    <tr>
+                        <td><a href="busker/<%= b.id %>"><%= b.name %></a></td>
+                        <td><%= b.musicType %></td>
+                        <div class="lat"><%= b.locations[0].lat %></div>
+                        <div class="long"><%= b.locations[0].long %></div>
+                        <div class="city"><%= b.locations[0].city %></div>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
+
+        <div id="map" class="col s12 l6">
+            <script>
+                mapboxgl.accessToken = '<%= mapkey %>';
+                var map = new mapboxgl.Map({
+                    container: 'map', // container id
+                    style: 'mapbox://styles/mapbox/streets-v11', // stylesheet location
+                    center: [-98.5795, 39.8283], // starting position [lng, lat]
+                    zoom: 2 // starting zoom
+                });
+                let name = document.getElementsByClassName('city')
+                let lat = document.getElementsByClassName('lat')
+                let long = document.getElementsByClassName('long')
+                console.log(lat, long)
+
+                // Declaration of the geojson object
+                var geojson = {
+                    type: 'FeatureCollection',
+                    features: []
+                };
+                // Process of populating geojson object.
+                for(let i = 0; i < lat.length; i++){
+                    geojson.features.push({
+                        type: 'Feature',
+                        geometry: {
+                            type: 'Point',
+                            coordinates: [long[i].textContent, lat[i].textContent]
+                        },
+                        properties: {
+                            title: 'Mapbox',
+                            description: name[i].textContent
+                        }
+                    })
+                }
+                // add markers to map
+                geojson.features.forEach(function(marker) {
+                    // create a HTML element for each feature
+                    var el = document.createElement('div');
+                    el.className = 'marker';
+                    // make a marker for each feature and add to the map
+                    new mapboxgl.Marker(el)
+                    .setLngLat(marker.geometry.coordinates)
+                    .addTo(map);
+                });
+            </script>
+        </div>
+    </div>
+</container>
+</body>

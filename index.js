@@ -4,6 +4,10 @@ let express = require('express')
 let flash = require('connect-flash')
 let layouts = require('express-ejs-layouts')
 let session = require('express-session')
+const db = require('./models')
+const isLoggedIn = require('./middleware/isLoggedIn')
+const mbxClient = require('@mapbox/mapbox-sdk')
+const mbxGeocode = require('@mapbox/mapbox-sdk/services/geocoding')
 
 // Declare express app variable
 let app = express();
@@ -37,8 +41,18 @@ app.use('/auth', require('./controllers/auth'))
 app.use('/profile', require('./controllers/profile'))
 app.use('/busker', require('./controllers/busker'))
 // Add home or catch-all routes
+
 app.get('/', (req, res) => {
-    res.render('home')
+    db.busker.findAll({
+        include: [db.location, db.user]
+    })
+    .then(buskers => {
+        res.render('home', { buskers, mapkey: process.env.MAPBOX_TOKEN })
+    })
+    .catch(err => {
+        console.log(err)
+        res.render('error')
+    })
 })
 
 app.get('*', (req, res) => {

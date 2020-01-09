@@ -2,16 +2,16 @@
     <div class="nav-wrapper">
         <a href="/" class="brand-logo">Busker Street</a>
           <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li><a href="/">Home</a></li>
             <% if(!user) { %>
+              <li><a href="/">Home</a></li>
               <li><a href="/auth/login">Login</a></li>
               <li><a href="/auth/signup">Signup</a></li>
-            <% } else { %>
-              <li>Hi, <%= user.firstname %></li>
-              <% if (user.admin) { %>
-                <li><a href="/profile/admin"> Admin Profile</a></li>
-              <% } %>
-              <li><a href="/busker">Buskers</a></li>
+              <% } else { %>
+                <li>Hi, <%= user.firstname %></li>
+                <li><a href="/">Home</a></li>
+                <% if (user.admin) { %>
+                  <li><a href="/profile/admin"> Admin Profile</a></li>
+                  <% } %>
               <li><a href="/busker/add">New Busker</a></li>
               <li><a href="/profile">Profile</a></li>
               <li><a href="/auth/logout">Logout</a></li>
