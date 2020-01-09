@@ -14,7 +14,7 @@ router.get('/login', (req, res) => {
 })
 
 router.post('/login', passport.authenticate('local', {
-    successRedirect: '/profile',
+    successRedirect: '/',
     successFlash: 'Successfully Logged In.',
     failureRedirect: '/auth/login',
     failureFlash: 'Invalid Credentials'
@@ -43,14 +43,14 @@ router.post('/signup', (req, res, next) => {
                 //Now, I want to automatically log in the user to their newly created account.
                 passport.authenticate('local', {
                     successRedirect: '/profile',
-                    successFlash: 'Yay, account created!',
+                    successFlash: 'Account creation successful!',
                     failureRedirect: '/auth/login',
                     failureFlash: 'H-h... HOW?!'
                 })(req, res, next)
             }
             else{
                 //The user already has an account (they may have forgotten this fact)
-                req.flash('error', 'You already have an account')
+                req.flash('error', 'You already have an account, please login.')
                 res.redirect('/auth/login')
             }
         })
@@ -82,7 +82,7 @@ router.post('/signup', (req, res, next) => {
 /* ----- Logout ----- */
 router.get('/logout', (req, res) => {
     req.logout() // Throws away the session data of the logged in user! Isn't that cool!
-    req.flash('success', '🦙Goodbye!🦩')
+    req.flash('success', '🦩 Have a lovely day. 🦩')
     res.redirect('/')
 })
 

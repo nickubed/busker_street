@@ -1,9 +1,28 @@
 <h2>Profile page for <%= busker.name %></h2>
+<% if(user) { %>
+    <% if(user.dataValues.id == busker.userId) { %>
+        <form method="POST" action="/busker/<%=busker.id%>?_method=DELETE">
+            <button id="delete" type="submit" class="btn btn-danger pink accent-2">
+                Delete this Busker
+            </button>
+        </form>
+        <form method="POST" action="/busker/<%=busker.id%>?_method=PUT">
+            <div class = "input-field col s12">
+                <textarea id="description" class="validate materialize-textarea" name="description"></textarea>
+                <label for="description">update Description</label>
+            </div>
+            <button class="btn btn-primary" type="submit">Submit</button>
+        </form>
+    <% } %>
+<% } %>
 <hr>
+
 <div class="row">
-    <div class="col s12">
+    <div class="col s4">
         <h3><%= busker.musicType %></h3>
-        <h4><%= busker.description %></h4>
+        <container class="col s3">
+            <h4><%= busker.description %></h4>
+        </container>
         <div class="lat"><%= busker.locations[0].lat %></div>
         <div class="long"><%= busker.locations[0].long %></div>
         <div class="city"><%= busker.locations[0].city %></div>
@@ -15,6 +34,7 @@
                 let name = document.getElementsByClassName('city')
                 let lat = document.getElementsByClassName('lat')
                 let long = document.getElementsByClassName('long')
+                let busker = document.getElementsByClassName('busker')
 
                 mapboxgl.accessToken = '<%= mapkey %>';
                 var map = new mapboxgl.Map({

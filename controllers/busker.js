@@ -38,7 +38,7 @@ router.get('/add', isLoggedIn, (req, res) => {
 router.get('/:id', (req, res) => {
     db.busker.findOne({
         where: {id: req.params.id},
-        include: [db.location]
+        include: [db.location, db.user]
     })
     .then(busker => {
         res.render('busker/show', { busker, mapkey: process.env.MAPBOX_TOKEN })
@@ -112,5 +112,40 @@ router.post('/add', isLoggedIn, (req, res) => {
         })
     })
 
+    router.put('/:id', isLoggedIn, (req, res) => {
+        db.busker.findOne({
+          where: { id : req.params.id }
+        })
+        .then((busker) => {
+            busker.update({
+                description: req.body.description
+            })
+            res.redirect(`${busker.id}`)
+        })
+    })
+
+    router.delete('/:id', isLoggedIn, (req, res) => {
+        //remove from the join table
+        db.buskerLocation.destroy({
+          where: { buskerId: req.params.id }
+        })
+        .then(() => {
+          // delete the category
+          db.busker.destroy({
+            where: { id: req.params.id }
+          })
+          .then(destroyedBusker => {
+            res.redirect('/')
+          })
+          .catch(err => {
+            console.log("error", err)
+            res.render('main/404')
+          })
+        })
+        .catch(err => {
+          console.log("error", err)
+          res.render('main/404')
+        })
+      })
 
 module.exports = router;

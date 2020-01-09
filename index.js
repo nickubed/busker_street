@@ -4,6 +4,7 @@ let express = require('express')
 let flash = require('connect-flash')
 let layouts = require('express-ejs-layouts')
 let session = require('express-session')
+let methodOverride = require('method-override')
 const db = require('./models')
 const isLoggedIn = require('./middleware/isLoggedIn')
 const mbxClient = require('@mapbox/mapbox-sdk')
@@ -20,6 +21,7 @@ app.set('view engine', 'ejs')
 app.use(layouts)
 app.use('/', express.static('static'))
 app.use(express.urlencoded({ extended: false }))
+app.use(methodOverride('_method'))
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
@@ -59,6 +61,6 @@ app.get('*', (req, res) => {
     res.render('error')
 })
 
-app.listen(process.env.PORT || 3000, () => {console.log('🦊Singin and Dancin🐰')})
+app.listen(process.env.PORT || 3000, () => {console.log(`🦊Singin and Dancin on port ${process.env.PORT}🐰`)})
 
 
