@@ -1,33 +1,51 @@
-<h2>Profile page for <%= busker.name %></h2>
-<% if(user) { %>
-    <% if(user.dataValues.id == busker.userId) { %>
-        <form method="POST" action="/busker/<%=busker.id%>?_method=DELETE">
-            <button id="delete" type="submit" class="btn btn-danger pink accent-2">
-                Delete this Busker
-            </button>
-        </form>
-        <form method="POST" action="/busker/<%=busker.id%>?_method=PUT">
-            <div class = "input-field col s12">
-                <textarea id="description" class="validate materialize-textarea" name="description"></textarea>
-                <label for="description">update Description</label>
-            </div>
-            <button class="btn btn-primary" type="submit">Submit</button>
-        </form>
-    <% } %>
-<% } %>
+<h1>Profile page for <%= busker.name %></h1>
+
 <hr>
 
 <div class="row">
-    <div class="col s4">
-        <h3><%= busker.musicType %></h3>
-        <container class="col s3">
-            <h4><%= busker.description %></h4>
-        </container>
-        <div class="lat"><%= busker.locations[0].lat %></div>
-        <div class="long"><%= busker.locations[0].long %></div>
-        <div class="city"><%= busker.locations[0].city %></div>
+    <div class="col s7">
+        <div id="musicBox" class="container col s12 purple lighten-5">
+            <p class="musicType">Music Type: <span style="color:#f06292"><%= busker.musicType %></span></p>
+        </div>
+        <div id="descriptionBox" class="container">
+            <p class="description"><%= busker.description %></p>
+        
+        <br>
+        <% if(user) { %>
+            <% if(user.dataValues.id == busker.userId) { %>
+                <div>
+                    <form method="POST" action="/busker/<%=busker.id%>?_method=PUT">
+                        <div class ="input-field col s12">
+                            <textarea id="description" class="validate materialize-textarea" name="description"></textarea>
+                            <label for="description">Update Description</label>
+                        </div>
+                        <div>
+                            <button class="btn btn-primary pink accent-2" type="submit">Submit</button>
+                            <br>
+                            <br>
+                        </div>
+                    </form>
+                </div>
+            </div>
+                <form method="POST" action="/busker/<%=busker.id%>?_method=DELETE">
+                    <button id="delete" type="submit" class="btn btn-danger red accent-3">
+                        Delete this Busker
+                    </button>
+                </form>
+            <% } %>
+        <% } %>
     </div>
-    <div class="col s12">
+
+
+<!-- This content exists wholly to feed the mapbox back-end information, and stays hidden. -->
+    <div class="lat"><%= busker.locations[0].lat %></div>
+    <div class="long"><%= busker.locations[0].long %></div>
+    <div class="city"><%= busker.locations[0].city %></div>
+
+<!-- Here Be Map, this should occupy the right hand side of the screen. -->
+
+
+    <div class="col s6">
         <div id="map" class="col s12 l6">
             <script>
 

@@ -1,29 +1,9 @@
 html,
+/*--------- Typical CSS Needs -------*/
 body {
     margin: 0;
     padding: 0;
-}
-
-nav {
-    display: inline-block;
-    width: 100%;
-    background-color: #90a4ae;
-}
-tbody{
-    height: 60vh;
-    display: block;
-    overflow: scroll;
-}
-thead, tbody tr {
-    display: table;
-    width: 100%;
-    table-layout: fixed;
-}
-thead {
-    width: calc( 100% - 1em);
-}
-table {
-    width: 35vw;
+    background-color: #ffebee;
 }
 
 main {
@@ -31,6 +11,33 @@ main {
     flex: 1 0 auto;
     height: 100vh;
     width: 100vw;
+}
+h1{
+    font-family: 'Gochi Hand', cursive;
+}
+li{
+    font-family: 'Enriqueta', serif;
+    font-size: 25px;
+}
+nav {
+    display: inline-block;
+    width: 100%;
+    background-color: #90a4ae;
+}
+#logo{
+    font-family: 'Gochi Hand', cursive;
+    margin-left: 15px;
+}
+
+
+button {
+    background-color: #ff4081;
+}
+
+#login{
+    display: flex;
+    position: relative;
+    justify-content: center;
 }
 
 .page-footer {
@@ -41,18 +48,100 @@ main {
     flex-direction: column;
 }
 
-button {
-    background-color: #ff4081;
+.img-responsive {
+    border-radius: 50%;
+    border-style: solid;
+    border-width: 0 0 12px 12px;
+    border-color: #e1bee7;
 }
+
+/*------- Table stuff -------- */
+tbody{
+    height: 60vh;
+    display: block;
+    overflow: scroll;
+    margin: 0px 25px 0px 0px
+}
+thead, tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+    border-style: solid;
+    border-width: 1px;
+    border-color: pink;
+}
+thead {
+    width: calc( 100% - 1em);
+    border-style: none;
+}
+table {
+    width: 35vw;
+    border-style: solid;
+    border-width: 0px 0px 5px 5px;
+    border-color:#e1bee7;
+}
+
 #rating {
     padding-top: 28px;
 }
 
-#toast-container {
-    left: 42%;
-    right: auto;
-    bottom: auto;
+/*------ Specific to Busker Display page-------*/
+
+.musicType{
+    text-align: left;
+    font-size: 24px;
 }
+
+#musicBox{
+    border-style: solid;
+    border-color: #e1bee7;
+    border-width: 0px 5px 5px 0px
+}
+
+.description{
+    text-align: left;
+    font-size: 24px;
+}
+
+#descriptionBox{
+    padding: 15px;
+    margin: 25px;
+    border-style: solid;
+    border-color: #e1bee7;
+    border-width: 0px 0px 25px 25px
+}
+
+#delete{
+    /* margin: 0em 18em 0em 0em; */
+    text-overflow: ellipsis;
+    overflow: hidden;
+    margin: 0vh 20vw 0vh 0vw
+}
+
+
+/*---- MAP AND MARKER STYLING ------ */
+
+#map {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    border-style: solid;
+    border-color: #e1bee7;
+    border-width: 25px 25px 0px 0px;
+  }
+
+
+.marker {
+    background-image: url('../images/mapbox-icon.png');
+    background-size: cover;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+/*---- Following exists to hide data for map access ----- */
 
 .lat {
     display: none;
@@ -64,25 +153,10 @@ button {
     display: none;
 }
 
-#login{
-    display: flex;
-    position: relative;
-    justify-content: center;
-}
+/*---- Toasts / Popups ----- */
 
-#map {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 100%;
-  }
-
-
-.marker {
-    background-image: url('../images/mapbox-icon.png');
-    background-size: cover;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    cursor: pointer;
+#toast-container {
+    left: 42%;
+    right: auto;
+    bottom: auto;
 }
