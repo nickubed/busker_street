@@ -12,7 +12,7 @@
         
         <br>
         <% if(user) { %>
-            <% if(user.dataValues.id == busker.userId) { %>
+            <% if(user.dataValues.id == busker.userId || user.dataValues.admin) { %>
                 <div>
                     <form method="POST" action="/busker/<%=busker.id%>?_method=PUT">
                         <div class ="input-field col s12">
@@ -42,7 +42,7 @@
     <div class="long"><%= busker.locations[0].long %></div>
     <div class="city"><%= busker.locations[0].city %></div>
 
-<!-- Here Be Map, this should occupy the right hand side of the screen. -->
+<!-- Here Be Map, this should occupy the right hand side of the screen, unless mobile, in which case it occupies the bottom. -->
 
 
     <div class="col s6">

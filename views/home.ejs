@@ -32,6 +32,8 @@
 </container>
         <div id="map" class="col s12 l6">
             <script>
+                //This code dictates what happens to all elements when the screen size enters mobile size.
+                //Yes, it's hacky.
                 if (window.innerWidth < 960) {
                     console.log('tiny');
                     tableStyle = document.getElementById('table').style

@@ -64,11 +64,11 @@ router.post('/add', isLoggedIn, (req, res) => {
                 long = response.body.features[0].center[0]
                 //declaration of locations object
             let locations = {
-                address : req.body.address,
-                city : req.body.city,
-                state : req.body.state,
-                lat: lat,
-                long: long
+                    address : req.body.address,
+                    city : req.body.city,
+                    state : req.body.state,
+                    lat: lat,
+                    long: long
                 }
                     //begin population of db, here we do busker
                     db.busker.create({
@@ -89,63 +89,59 @@ router.post('/add', isLoggedIn, (req, res) => {
                         })
                     //Adding location & busker to join table
                         .then((location) => {
-                            console.log(location)
                             busker.addLocation(location)
                             res.redirect('/');
-                            })
-                            .catch(err => {
-                                console.log(err)
-                            })
+                        })
                         .catch(err => {
                             console.log(err)
                         })
-                })
+                    })
             }
             else {
                 req.flash('error', `Bad address, I don't know why either.`)
                 res.render('busker/add', { alerts: req.flash() })
             }
-            })   
-        .catch(err => {
-            console.log(err)
-            res.render('error')
-        })
+        })   
+    .catch(err => {
+        console.log(err)
+        res.render('error')
     })
+})
 
-    router.put('/:id', isLoggedIn, (req, res) => {
-        db.busker.findOne({
-          where: { id : req.params.id }
-        })
-        .then((busker) => {
-            busker.update({
-                description: req.body.description
-            })
-            res.redirect(`${busker.id}`)
-        })
+router.put('/:id', isLoggedIn, (req, res) => {
+    db.busker.findOne({
+        where: { id : req.params.id }
     })
-
-    router.delete('/:id', isLoggedIn, (req, res) => {
-        //remove from the join table
-        db.buskerLocation.destroy({
-          where: { buskerId: req.params.id }
+    .then((busker) => {
+        busker.update({
+            description: req.body.description
         })
-        .then(() => {
-          // delete the category
-          db.busker.destroy({
+        res.redirect(`${busker.id}`)
+    })
+})
+
+router.delete('/:id', isLoggedIn, (req, res) => {
+    //remove from the join table
+    db.buskerLocation.destroy({
+        where: { buskerId: req.params.id }
+    })
+    .then(() => {
+        // delete the category
+        db.busker.destroy({
             where: { id: req.params.id }
-          })
-          .then(destroyedBusker => {
+        })
+            .then(destroyedBusker => {
             res.redirect('/')
-          })
-          .catch(err => {
+        })
+        .catch(err => {
             console.log("error", err)
             res.render('main/404')
-          })
         })
-        .catch(err => {
-          console.log("error", err)
-          res.render('main/404')
-        })
-      })
+    })
+    .catch(err => {
+        console.log("error", err)
+        res.render('main/404')
+    })
+})
 
 module.exports = router;
