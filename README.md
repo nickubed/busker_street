@@ -16,7 +16,6 @@ As a user, I want to be able to:
 - View a map of located buskers in my city
 - Add a busker to the map when I find one
 - Add characteristics to the found busker, including a description, photo, type of music being played, and a rating.
-- Rating logic: display = sum of rating total / rating.length
 - View a list of all buskers, and visit a page dedicated to each added busker.
 - Leave a review on other people’s added buskers.
 
