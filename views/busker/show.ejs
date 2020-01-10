@@ -48,6 +48,17 @@
     <div class="col s6">
         <div id="map" class="col s12 l6">
             <script>
+                // Don't judge me, I was going to make this mobile-friendly even if it killed me.
+                if (window.innerWidth < 960) {
+                    console.log('tiny');
+                    mapStyle = document.getElementById('map').style
+                    mainStyle = document.getElementById('main').style
+                    mainStyle.height='150vh';
+                    mapStyle.display = 'block';
+                    mapStyle.top = '105vh';
+                    mapStyle.width='90vw';
+                    mapStyle.left='7%';
+                }
 
                 let name = document.getElementsByClassName('city')
                 let lat = document.getElementsByClassName('lat')

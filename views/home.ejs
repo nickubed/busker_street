@@ -9,7 +9,8 @@
 <container>
     <div class="row">
         <div class="col s12 l6 left-align">
-        <table class="table striped">
+        <table id="table" class="table striped">
+            <% if(buskers){ %>
             <thead>
                 <th>Name</th>
                 <th>Music Type</th>
@@ -25,11 +26,24 @@
                     </tr>
                 <% }) %>
             </tbody>
+            <% } %>
         </table>
     </div>
-
+</container>
         <div id="map" class="col s12 l6">
             <script>
+                if (window.innerWidth < 960) {
+                    console.log('tiny');
+                    tableStyle = document.getElementById('table').style
+                    mapStyle = document.getElementById('map').style
+                    mainStyle = document.getElementById('main').style
+                    mainStyle.height='150vh';
+                    tableStyle.width='90vw';
+                    mapStyle.display = 'block';
+                    mapStyle.top = '105vh';
+                    mapStyle.width='90vw';
+                    mapStyle.left='7%';
+                }
                 mapboxgl.accessToken = '<%= mapkey %>';
                 var map = new mapboxgl.Map({
                     container: 'map', // container id
@@ -74,5 +88,4 @@
             </script>
         </div>
     </div>
-</container>
 </body>
