@@ -14,6 +14,11 @@ main {
 }
 h1{
     font-family: 'Gochi Hand', cursive;
+    color: #b39ddb
+}
+hr {
+    border-style: solid;
+    color: #b39ddb;
 }
 li{
     font-family: 'Enriqueta', serif;
@@ -22,7 +27,7 @@ li{
 nav {
     display: inline-block;
     width: 100%;
-    background-color: #90a4ae;
+    background-color: #ffcc80;
 }
 #logo{
     font-family: 'Gochi Hand', cursive;
@@ -41,7 +46,7 @@ button {
 }
 
 .page-footer {
-    background-color: #90a4ae;
+    background-color: #ffcc80;
     text-align: center;
     display: flex;
     min-height: 10vh;
@@ -63,12 +68,13 @@ tbody{
     margin: 0px 25px 0px 0px
 }
 thead, tbody tr {
+    color: #b39ddb;
     display: table;
     width: 100%;
     table-layout: fixed;
     border-style: solid;
     border-width: 1px;
-    border-color: pink;
+    border-color: #ffca28;
 }
 thead {
     width: calc( 100% - 1em);
@@ -79,6 +85,9 @@ table {
     border-style: solid;
     border-width: 0px 0px 5px 5px;
     border-color:#e1bee7;
+}
+a {
+    color: purple;
 }
 
 #rating {
