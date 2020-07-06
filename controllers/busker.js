@@ -1,12 +1,14 @@
 require('dotenv').config()
+const axios = require('axios')
 const router = require('express').Router()
 const db = require('../models')
 const isLoggedIn = require('../middleware/isLoggedIn')
 const mbxClient = require('@mapbox/mapbox-sdk')
 const mbxGeocode = require('@mapbox/mapbox-sdk/services/geocoding')
+const GEO_URL = 'https://geocoding.geo.census.gov/geocoder/locations/address?street='
 
 const mb = mbxClient({ accessToken: process.env.MAPBOX_TOKEN })
-const geocode = mbxGeocode(mb)
+// const geocode = mbxGeocode(mb)
 
 router.get('/', (req, res) => {
     db.busker.findAll({
@@ -41,6 +43,7 @@ router.get('/:id', (req, res) => {
         include: [db.location, db.user]
     })
     .then(busker => {
+        console.log(busker)
         res.render('busker/show', { busker, mapkey: process.env.MAPBOX_TOKEN })
     })
     .catch(err => {
@@ -51,17 +54,18 @@ router.get('/:id', (req, res) => {
 
 router.post('/add', isLoggedIn, (req, res) => {
     //Pass location information into geocoder
-    geocode.forwardGeocode({
-        query: `${req.body.address}, ${req.body.city}, ${req.body.state}`,
-        types: ['place'],
-        countries: ['us']
-    }).send()
+    axios.get(`${GEO_URL + req.body.address.split(' ').join('+')}&city=${req.body.city}&state=${req.body.state}&benchmark=Public_AR_Census2010&format=json`)
+    // geocode.forwardGeocode({
+    //     query: `${req.body.address}, ${req.body.city}, ${req.body.state}`,
+    //     types: ['place'],
+    //     countries: ['us']
+    // }).send()
         .then((response) => {
-            if(response.body.features.length){
-                console.log(response)
+            console.log(response.data)
+            if(response.data){
                 //responds with geocoded data, which is lat long
-                lat = response.body.features[0].center[1]
-                long = response.body.features[0].center[0]
+                let long = response.data.result.addressMatches[0].coordinates.x
+                let lat = response.data.result.addressMatches[0].coordinates.y
                 //declaration of locations object
             let locations = {
                     address : req.body.address,
